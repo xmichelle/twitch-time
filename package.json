@@ -1,0 +1,51 @@
+{
+  "name": "react-scaffold",
+  "version": "1.0.0",
+  "description": "An empty full-stack React project scaffold.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch:server": "nodemon server/index.js",
+    "bundle": "browserify -t babelify client/index.js -o server/public/main.js",
+    "watch:client": "watchify -v -d -t babelify client/index.js -o server/public/main.js",
+    "watch": "run-p watch:client watch:server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xmichelle/react-scaffold.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/xmichelle/react-scaffold/issues"
+  },
+  "homepage": "https://github.com/xmichelle/react-scaffold#readme",
+  "devDependencies": {
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.24.1",
+    "babel-plugin-transform-react-jsx": "^6.24.1",
+    "babelify": "^7.3.0",
+    "browserify": "^14.4.0",
+    "eslint": "^4.3.0",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-node": "^5.1.1",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-react": "^7.1.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "htmlhint": "^0.9.13",
+    "nodemon": "^1.11.0",
+    "npm-run-all": "^4.0.2",
+    "stylelint": "^8.0.0",
+    "stylelint-config-standard": "^17.0.0",
+    "watchify": "^3.9.0"
+  },
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3",
+    "knex": "^0.13.0",
+    "pg": "^7.0.2",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1"
+  }
+}
