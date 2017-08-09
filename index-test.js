@@ -6,6 +6,7 @@ const clientId = process.env.CLIENT_ID
 const idUrl = `https://api.twitch.tv/kraken/users?login=nightblue3&client_id=${clientId}`
 const streamUrl = `https://api.twitch.tv/kraken/streams/26946000?client_id=${clientId}`
 const channelUrl = `https://api.twitch.tv/kraken/channels/26946000?client_id=${clientId}`
+const channelSearchUrl = `https://api.twitch.tv/kraken/search/channels?query=nightblue3&client_id=${clientId}`
 
 const idOptions = {
   url: idUrl,
@@ -31,6 +32,14 @@ const channelOptions = {
   json: true
 }
 
+const channelSearchOptions = {
+  url: channelSearchUrl,
+  headers: {
+    'Accept': 'application/vnd.twitchtv.v5+json'
+  },
+  json: true
+}
+
 request(idOptions, (err, res, body) => {
   console.log(err)
   console.log(body)
@@ -46,6 +55,11 @@ request(channelOptions, (err, res, body) => {
   console.log(body)
 })
 
+request(channelSearchOptions, (err, res, body) => {
+  console.log(err)
+  console.log(body)
+})
+
 // when stream is not in session, value is null on stream property
 // when stream is in session, value is an object
 
@@ -53,3 +67,5 @@ request(channelOptions, (err, res, body) => {
 
 // Get id from login
 // use id to get stream and channel info
+
+// channelSearch gives id, display name, logo, description, views, followers, etc
