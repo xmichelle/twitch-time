@@ -19,22 +19,22 @@ app.use(bodyParser.json())
 
 const clientId = process.env.CLIENT_ID
 
-// app.get('/search', (req, res) => {
-//   console.log(req.query)
-//   // req.query will return an object so need to specify the property in order to get the value; temporary property will be named term
-//   const channelSearchOptions = {
-//     url: `https://api.twitch.tv/kraken/search/channels?query=${req.query.term}&client_id=${clientId}`,
-//     headers: {
-//       'Accept': 'application/vnd.twitchtv.v5+json'
-//     },
-//     json: true
-//   }
-//   request(channelSearchOptions, (err, response, body) => {
-//     if (!err && response.statusCode === 200) {
-//       res.json(body)
-//     }
-//   })
-// })
+app.get('/search', (req, res) => {
+  console.log(req.query)
+  // req.query will return an object so need to specify the property in order to get the value; temporary property will be named term
+  const channelSearchOptions = {
+    url: `https://api.twitch.tv/kraken/search/channels?query=${req.query.term}&client_id=${clientId}`,
+    headers: {
+      'Accept': 'application/vnd.twitchtv.v5+json'
+    },
+    json: true
+  }
+  request(channelSearchOptions, (err, response, body) => {
+    if (!err && response.statusCode === 200) {
+      res.json(body)
+    }
+  })
+})
 
 app.get('/favorites', (req, res) => {
   knex
