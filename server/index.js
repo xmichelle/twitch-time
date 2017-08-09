@@ -25,18 +25,18 @@ app.get('/search', (req, res) => {
   })
 })
 
-// const favoriteChannels = []
-//
-// app.get('/favorites', (req, res) => {
-//   res.json(favoriteChannels)
-// })
-//
-// app.use(bodyParser.json())
-//
-// app.post('/favorites', (req, res) => {
-//   favoriteChannels.push(req.body)
-//   res.sendStatus(201)
-// })
+const favoriteChannels = []
+
+app.get('/favorites', (req, res) => {
+  res.json(favoriteChannels)
+})
+
+app.use(bodyParser.json())
+
+app.post('/favorites', (req, res) => {
+  favoriteChannels.push(req.body)
+  res.sendStatus(201)
+})
 
 app.listen(process.env.PORT, () => {
   console.log('Listening on port ' + process.env.PORT)
