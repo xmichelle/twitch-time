@@ -4,6 +4,13 @@ const request = require('request')
 const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
+const path = require('path')
+
+const publicPath = path.join(__dirname, 'public')
+const staticMiddleware = express.static(publicPath)
+
+app.use(staticMiddleware)
+app.use(bodyParser.json())
 
 const clientId = process.env.CLIENT_ID
 // const channelQueryUrl = 'https://api.twitch.tv/kraken/search/channels?query=' + '' + '&client_id=' + clientID
@@ -30,8 +37,6 @@ const favoriteChannels = []
 app.get('/favorites', (req, res) => {
   res.json(favoriteChannels)
 })
-
-app.use(bodyParser.json())
 
 app.post('/favorites', (req, res) => {
   favoriteChannels.push(req.body)
