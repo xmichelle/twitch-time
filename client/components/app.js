@@ -8,20 +8,27 @@ export class App extends React.Component {
     this.getChannel = this.getChannel.bind(this)
   }
 
-  // getChannel(search) {
-  //
-  //   fetch('./search')
+  // componentDidMount() {
+  //   fetch('./favorites')
   //     .then(res => res.json())
   //     .then(data => {
   //       this.setState({ list: data })
   //     })
   // }
 
+  getChannel(search) {
+    fetch('./search?term=' + search)
+      .then(res => res.json())
+      .then(data => {
+        this.setState({ list: data })
+      })
+  }
+
   render() {
     return (
       <div>
         <div className="search-bar">
-          <Search list={this.state.list} handleSubmit={this.getChannel}/>
+          <Search getChannel={this.getChannel} list={this.state.list}/>
         </div>
       </div>
     )
