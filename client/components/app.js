@@ -1,5 +1,6 @@
 import React from 'react'
 import { Search } from './search'
+import { SearchList } from './search-list'
 
 export class App extends React.Component {
   constructor(props) {
@@ -20,7 +21,7 @@ export class App extends React.Component {
     fetch('./search?term=' + search)
       .then(res => res.json())
       .then(data => {
-        this.setState({ list: data })
+        this.setState({ list: data.channels }) // data returns an object of property channels set equal to an array of objects
       })
   }
 
@@ -28,7 +29,10 @@ export class App extends React.Component {
     return (
       <div>
         <div className="search-bar">
-          <Search getChannel={this.getChannel} list={this.state.list}/>
+          <Search getChannel={this.getChannel} />
+        </div>
+        <div>
+          <SearchList list={this.state.list}/>
         </div>
       </div>
     )

@@ -35,7 +35,7 @@ export class Search extends React.Component {
         <div className="nav-wrapper black">
           <form onSubmit={ this.handleSubmit }>
             <div className="input-field">
-              <input placeholder="Find a Twitch channel" id="search" type="search" name="search" /* value={this.props.search} */ required />
+              <input placeholder="Find a Twitch channel" id="search" type="search" name="search" required />
               <label className="label-icon" htmlFor="search"><i className="material-icons">search</i></label>
               <i className="material-icons">close</i>
             </div>
