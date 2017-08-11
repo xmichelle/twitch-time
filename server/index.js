@@ -35,14 +35,14 @@ app.get('/search', (req, res) => {
   })
 })
 
-// app.get('/favorites', (req, res) => {
-//   knex
-//     .select('*')
-//     .from('streamers')
-//     .then(data => {
-//       res.json(data)
-//     })
-// })
+app.get('/favorites', (req, res) => {
+  knex
+    .select('*')
+    .from('streamers')
+    .then(data => {
+      res.json(data)
+    })
+})
 
 app.post('/favorites', (req, res) => {
   // const channelIdOptions = {
