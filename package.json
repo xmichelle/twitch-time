@@ -1,14 +1,19 @@
 {
   "name": "react-scaffold",
   "version": "1.0.0",
-  "description": "An empty full-stack React project scaffold.",
+  "description": "Twitch Time Project",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch:server": "nodemon server/index.js",
     "bundle": "browserify -t babelify client/index.js -o server/public/main.js",
     "watch:client": "watchify -v -d -t babelify client/index.js -o server/public/main.js",
-    "watch": "run-p watch:client watch:server"
+    "watch": "run-p watch:client watch:server",
+    "db:make": "pg-bump create",
+    "db:up": "pg-bump up",
+    "db:down": "pg-bump down",
+    "db:status": "pg-bump status",
+    "db:rebuild": "pg-bump down && pg-bump up"
   },
   "repository": {
     "type": "git",
@@ -20,7 +25,7 @@
   "bugs": {
     "url": "https://github.com/xmichelle/react-scaffold/issues"
   },
-  "homepage": "https://github.com/xmichelle/react-scaffold#readme",
+  "homepage": "",
   "devDependencies": {
     "babel-plugin-transform-es2015-modules-commonjs": "^6.24.1",
     "babel-plugin-transform-react-jsx": "^6.24.1",
@@ -36,16 +41,21 @@
     "htmlhint": "^0.9.13",
     "nodemon": "^1.11.0",
     "npm-run-all": "^4.0.2",
+    "pg-bump": "^1.0.3",
+    "request": "^2.81.0",
     "stylelint": "^8.0.0",
     "stylelint-config-standard": "^17.0.0",
     "watchify": "^3.9.0"
   },
   "dependencies": {
     "body-parser": "^1.17.2",
+    "dotenv": "^4.0.0",
     "express": "^4.15.3",
     "knex": "^0.13.0",
+    "material-ui": "^0.18.7",
     "pg": "^7.0.2",
     "react": "^15.6.1",
-    "react-dom": "^15.6.1"
+    "react-dom": "^15.6.1",
+    "react-tap-event-plugin": "^2.0.1"
   }
 }
