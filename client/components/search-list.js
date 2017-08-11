@@ -12,11 +12,11 @@ export class SearchList extends React.Component {
     this.handleClick = this.handleClick.bind(this)
   }
 
-  // handleClick(id) {
-  //   const twitchId = { twitch_id: id }
-  //
-  //   this.props.addChannel(twitchId)
-  // }
+  handleClick(id) {
+    const twitchId = { twitch_id: id }
+
+    this.props.addChannel(twitchId)
+  }
 
   render() {
     console.log(this.props.list)
