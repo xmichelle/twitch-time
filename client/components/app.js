@@ -17,6 +17,10 @@ export class App extends React.Component {
       })
   }
 
+  // addChannel(channel) {
+  //   fetch('./')
+  // }
+
   render() {
     return (
       <div>

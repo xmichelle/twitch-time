@@ -11,6 +11,12 @@ export class SearchList extends React.Component {
     this.state = { list: [] }
   }
 
+  handleClick(event) {
+    event.preventDefault()
+
+    // when box is clicked, post info to the database.
+  }
+
   render() {
     console.log(this.props.list)
     return (
