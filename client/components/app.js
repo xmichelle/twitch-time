@@ -5,7 +5,7 @@ import { SearchList } from './search-list'
 export class App extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { list: [] }
+    this.state = { list: [], favorites: [] }
     this.getChannel = this.getChannel.bind(this)
   }
 
@@ -17,9 +17,18 @@ export class App extends React.Component {
       })
   }
 
-  // addChannel(channel) {
-  //   fetch('./')
-  // }
+  addChannel(twitchId) {
+    fetch('./favorites', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(twitchId)
+    })
+      .then(res => res.json())
+      .then(data => {
+        console.log(data)
+        // this.setState({ favorites: [data].concat(this.state.favorites) })
+      })
+  }
 
   render() {
     return (
@@ -28,7 +37,7 @@ export class App extends React.Component {
           <Search getChannel={this.getChannel} />
         </div>
         <div>
-          <SearchList list={this.state.list}/>
+          <SearchList list={this.state.list} addChannel={this.addChannel} />
         </div>
       </div>
     )

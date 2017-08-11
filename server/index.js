@@ -28,20 +28,37 @@ app.get('/search', (req, res) => {
     json: true
   }
   request(channelSearchOptions, (err, response, body) => {
-    if (err) return console.log(err)
+    if (err) console.log(err)
     else if (!err && response.statusCode === 200) {
       res.json(body)
     }
   })
 })
 
+// app.get('/favorites', (req, res) => {
+//   knex
+//     .select('*')
+//     .from('streamers')
+//     .then(data => {
+//       res.json(data)
+//     })
+// })
+
 app.post('/favorites', (req, res) => {
-  const channelData = req.body
+  // const channelIdOptions = {
+  //   url: `https://api.twitch.tv/kraken/channels/`,
+  //   headers: {
+  //     'Accept': 'application/vnd.twitchtv.v5+json'
+  //   },
+  //   json: true
+  // }
+  const channelId = req.body
   knex
-    .insert(channelData)
+    .insert(channelId)
     .into('streamers')
     .returning('*')
     .then(data => {
+      // request()
       res.status(201).json(data)
     })
 })

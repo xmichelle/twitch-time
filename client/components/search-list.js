@@ -9,13 +9,14 @@ export class SearchList extends React.Component {
   constructor(props) {
     super(props)
     this.state = { list: [] }
+    this.handleClick = this.handleClick.bind(this)
   }
 
-  handleClick(event) {
-    event.preventDefault()
-
-    // when box is clicked, post info to the database.
-  }
+  // handleClick(id) {
+  //   const twitchId = { twitch_id: id }
+  //
+  //   this.props.addChannel(twitchId)
+  // }
 
   render() {
     console.log(this.props.list)
@@ -25,7 +26,7 @@ export class SearchList extends React.Component {
           <Subheader>Search Results</Subheader>
           {
             this.props.list.map((channel, i) => {
-              return <div key={i}>
+              return <div key={i} onClick={() => this.handleClick(channel._id)}>
                 <ListItem
                   leftAvatar={<Avatar src={channel.logo} />}
                   primaryText={
