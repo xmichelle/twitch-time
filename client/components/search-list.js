@@ -23,7 +23,7 @@ export class SearchList extends React.Component {
                 <ListItem
                   leftAvatar={<Avatar src={channel.logo} />}
                   primaryText={
-                    <p>{channel.display_name}&nbsp;&nbsp;<span style={{color: lightBlack}}>Followers: {channel.followers}</span></p>
+                    <p>{channel.display_name}<span style={{color: lightBlack, paddingLeft: 15}}>Followers: {channel.followers}</span></p>
                   }
                   secondaryText={
                     <p>{channel.description}</p>

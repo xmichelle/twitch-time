@@ -13,10 +13,6 @@ export class Search extends React.Component {
 
     const searchData = new FormData(event.target)
 
-    // const matches = this.props.list.filter(choice => {
-    //   return choice.toLowerCase().includes(newSearch.search.toLowerCase())
-    // })
-
     const searchInput = searchData.get('search')
     const modifiedSearchInput = searchInput.toLowerCase().split(' ').join('')
 
@@ -40,7 +36,7 @@ export class Search extends React.Component {
               <i className="material-icons">close</i>
             </div>
             <div>
-              <button className="btn waves-effect waves-light black" type="submit" name="action">Search
+              <button className="btn waves-effect waves-light black" type="submit" name="action" id="search-button">Search
               </button>
             </div>
           </form>

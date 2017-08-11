@@ -9,19 +9,11 @@ export class App extends React.Component {
     this.getChannel = this.getChannel.bind(this)
   }
 
-  // componentDidMount() {
-  //   fetch('./favorites')
-  //     .then(res => res.json())
-  //     .then(data => {
-  //       this.setState({ list: data })
-  //     })
-  // }
-
   getChannel(search) {
     fetch('./search?term=' + search)
       .then(res => res.json())
       .then(data => {
-        this.setState({ list: data.channels }) // data returns an object of property channels set equal to an array of objects
+        this.setState({ list: data.channels })
       })
   }
 
