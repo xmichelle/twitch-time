@@ -45,20 +45,12 @@ app.get('/favorites', (req, res) => {
 })
 
 app.post('/favorites', (req, res) => {
-  // const channelIdOptions = {
-  //   url: `https://api.twitch.tv/kraken/channels/`,
-  //   headers: {
-  //     'Accept': 'application/vnd.twitchtv.v5+json'
-  //   },
-  //   json: true
-  // }
   const channelId = req.body
   knex
     .insert(channelId)
     .into('streamers')
     .returning('*')
     .then(data => {
-      // request()
       res.status(201).json(data)
     })
 })
