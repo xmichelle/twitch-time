@@ -4,13 +4,17 @@ import TextField from 'material-ui/TextField'
 import FontIcon from 'material-ui/FontIcon'
 import {grey50} from 'material-ui/styles/colors'
 import IconButton from 'material-ui/IconButton'
+import Drawer from 'material-ui/Drawer'
+import MenuItem from 'material-ui/MenuItem'
 
 export class Search extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { search: '' }
+    this.state = { search: '', open: false }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleToggle = this.handleToggle.bind(this)
+    this.handleClose = this.handleClose.bind(this)
   }
 
   handleChange(event) {
@@ -34,6 +38,14 @@ export class Search extends React.Component {
     this.setState({ search: '' })
   }
 
+  handleToggle() {
+    this.setState({ open: !this.state.open })
+  }
+
+  handleClose() {
+    this.setState({ open: false })
+  }
+
   render() {
     const searchStyle = {
       position: 'relative',
@@ -51,6 +63,21 @@ export class Search extends React.Component {
     return (
       <AppBar
         title="Twitch Time"
+        iconElementLeft={
+          <div>
+            <IconButton onClick={this.handleToggle}>
+              <FontIcon className="material-icons" color={grey50}>menu</FontIcon>
+            </IconButton>
+            <Drawer
+              docked={false}
+              width={200}
+              open={this.state.open}
+              onRequestChange={open => this.setState({open})}
+            >
+              <MenuItem onClick={this.handleClose}>Favorites</MenuItem>
+            </Drawer>
+          </div>
+        }
         iconElementRight={
           <form style={formStyle} onSubmit={this.handleSubmit}>
             <FontIcon className="material-icons" style={searchStyle} color={grey50}>search</FontIcon>
