@@ -14,7 +14,7 @@ export class SearchList extends React.Component {
 
   handleClick(id) {
     const twitchId = { twitch_id: id }
-
+    console.log(id)
     this.props.addChannel(twitchId)
   }
 

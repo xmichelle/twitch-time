@@ -7,6 +7,7 @@ export class App extends React.Component {
     super(props)
     this.state = { list: [], favorites: [] }
     this.getChannel = this.getChannel.bind(this)
+    this.addChannel = this.addChannel.bind(this)
   }
 
   getChannel(search) {
@@ -26,6 +27,10 @@ export class App extends React.Component {
       .then(res => res.json())
       .then(data => {
         console.log(data)
+        this.setState({ list: this.state.list.filter(channel => {
+          return channel._id !== twitchId.twitch_id
+        })
+        })
         // this.setState({ favorites: [data].concat(this.state.favorites) })
       })
   }
