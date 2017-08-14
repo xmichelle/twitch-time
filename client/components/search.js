@@ -1,19 +1,28 @@
 import React from 'react'
+import AppBar from 'material-ui/AppBar'
+import TextField from 'material-ui/TextField'
+import FontIcon from 'material-ui/FontIcon'
+import {grey50} from 'material-ui/styles/colors'
+import IconButton from 'material-ui/IconButton'
 
 export class Search extends React.Component {
   constructor(props) {
     super(props)
     this.state = { search: '' }
+    this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+  }
+
+  handleChange(event) {
+    this.setState({ search: event.target.value })
   }
 
   handleSubmit(event) {
     event.preventDefault()
     console.log('Submitting search form')
 
-    const searchData = new FormData(event.target)
+    const searchInput = this.state.search
 
-    const searchInput = searchData.get('search')
     const modifiedSearchInput = searchInput.toLowerCase().split(' ').join('')
 
     const newSearch = {
@@ -21,27 +30,41 @@ export class Search extends React.Component {
     }
 
     this.props.getChannel(newSearch.search)
-    event.target.reset()
 
+    this.setState({ search: '' })
   }
 
   render() {
+    const searchStyle = {
+      position: 'relative',
+      top: 10,
+      right: 5
+    }
+    const formStyle = {
+      position: 'relative',
+      bottom: 10
+    }
+    const sendStyle = {
+      position: 'relative',
+      top: 8
+    }
     return (
-      <nav>
-        <div className="nav-wrapper black">
-          <form onSubmit={ this.handleSubmit }>
-            <div className="input-field">
-              <input placeholder="Find a Twitch channel" id="search" type="search" name="search" required />
-              <label className="label-icon" htmlFor="search"><i className="material-icons">search</i></label>
-              <i className="material-icons">close</i>
-            </div>
-            <div>
-              <button className="btn waves-effect waves-light black" type="submit" name="action" id="search-button">Search
-              </button>
-            </div>
+      <AppBar
+        title="Twitch Time"
+        iconElementRight={
+          <form style={formStyle} onSubmit={this.handleSubmit}>
+            <FontIcon className="material-icons" style={searchStyle} color={grey50}>search</FontIcon>
+            <TextField
+              hintText="Find a Twitch Channel"
+              value={this.state.search}
+              onChange={this.handleChange}
+            />
+            <IconButton style={sendStyle}>
+              <FontIcon className="material-icons" color={grey50}>send</FontIcon>
+            </IconButton>
           </form>
-        </div>
-      </nav>
+        }
+      />
     )
   }
 }
