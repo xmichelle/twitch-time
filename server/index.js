@@ -6,6 +6,11 @@ const app = express()
 const bodyParser = require('body-parser')
 const path = require('path')
 
+const knex = require('knex')({
+  dialect: 'pg',
+  connection: process.env.DATABASE_URL
+})
+
 const publicPath = path.join(__dirname, 'public')
 const staticMiddleware = express.static(publicPath)
 
@@ -23,10 +28,31 @@ app.get('/search', (req, res) => {
     json: true
   }
   request(channelSearchOptions, (err, response, body) => {
-    if (!err && response.statusCode === 200) {
+    if (err) console.log(err)
+    else if (!err && response.statusCode === 200) {
       res.json(body)
     }
   })
+})
+
+app.get('/favorites', (req, res) => {
+  knex
+    .select('*')
+    .from('streamers')
+    .then(data => {
+      res.json(data)
+    })
+})
+
+app.post('/favorites', (req, res) => {
+  const channelId = req.body
+  knex
+    .insert(channelId)
+    .into('streamers')
+    .returning('*')
+    .then(data => {
+      res.status(201).json(data)
+    })
 })
 
 app.listen(process.env.PORT, () => {

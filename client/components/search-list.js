@@ -4,11 +4,20 @@ import Divider from 'material-ui/Divider'
 import Subheader from 'material-ui/Subheader'
 import Avatar from 'material-ui/Avatar'
 import {lightBlack} from 'material-ui/styles/colors'
+import Snackbar from 'material-ui/Snackbar'
 
 export class SearchList extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { list: [] }
+    this.state = { list: [], open: false, displayName: '' }
+    this.handleClick = this.handleClick.bind(this)
+  }
+
+  handleClick(channel) {
+    const twitchId = { twitch_id: channel._id }
+
+    this.setState({ open: true, displayName: channel.display_name })
+    this.props.addChannel(twitchId)
   }
 
   render() {
@@ -19,7 +28,7 @@ export class SearchList extends React.Component {
           <Subheader>Search Results</Subheader>
           {
             this.props.list.map((channel, i) => {
-              return <div key={i}>
+              return <div key={i} onClick={() => this.handleClick(channel)}>
                 <ListItem
                   leftAvatar={<Avatar src={channel.logo} />}
                   primaryText={
@@ -33,8 +42,12 @@ export class SearchList extends React.Component {
               </div>
             })
           }
-          <Divider inset={true} />
         </List>
+        <Snackbar
+          open={this.state.open}
+          message= {this.state.displayName + ' has been added to your favorites'}
+          autoHideDuration={4000}
+        />
       </div>
 
     )
