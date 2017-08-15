@@ -36,7 +36,7 @@ export class App extends React.Component {
   render() {
     return (
       <div>
-        <Search getChannel={this.getChannel}/>
+        <Search getChannel={this.getChannel} switchView={this.switchView}/>
         <SearchList list={this.state.list} addChannel={this.addChannel} />
         <Favorites/>
       </div>

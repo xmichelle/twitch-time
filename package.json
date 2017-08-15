@@ -7,10 +7,10 @@
   },
   "main": "index.js",
   "scripts": {
-    "start": "node server/index.js",
+    "start": "node server/server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "watch:server": "nodemon server/index.js",
-    "bundle": "browserify -t babelify client/index.js -o server/public/main.js",
+    "watch:server": "nodemon server/server.js",
+    "bundle": "browserify -t babelify client/index.js -o server/server/main.js",
     "watch:client": "watchify -v -d -t babelify client/index.js -o server/public/main.js",
     "watch": "run-p watch:client watch:server",
     "db:make": "pg-bump create",

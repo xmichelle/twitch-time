@@ -14,7 +14,7 @@ export class Search extends React.Component {
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleToggle = this.handleToggle.bind(this)
-    this.handleClose = this.handleClose.bind(this)
+    this.switchView = this.switchView.bind(this)
   }
 
   handleChange(event) {
@@ -23,18 +23,12 @@ export class Search extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault()
-    console.log('Submitting search form')
-
     const searchInput = this.state.search
-
-    const modifiedSearchInput = searchInput.toLowerCase().split(' ').join('')
-
     const newSearch = {
-      search: modifiedSearchInput
+      search: this.state.search.toLowerCase().split(' ').join('')
     }
 
     this.props.getChannel(newSearch.search)
-
     this.setState({ search: '' })
   }
 
@@ -42,7 +36,8 @@ export class Search extends React.Component {
     this.setState({ open: !this.state.open })
   }
 
-  handleClose() {
+  switchView() {
+    console.log('switched')
     this.setState({ open: false })
   }
 
@@ -66,20 +61,19 @@ export class Search extends React.Component {
             </IconButton>
             <Drawer
               docked={false}
-              width={200}
               open={this.state.open}
               onRequestChange={open => this.setState({open})}
             >
-              <MenuItem onClick={this.handleClose}>Search</MenuItem>
-              <MenuItem onClick={this.handleClose}>Favorites</MenuItem>
-              <MenuItem onClick={this.handleClose}>Close</MenuItem>
+              <MenuItem onClick={this.switchView}>Search</MenuItem>
+              <MenuItem onClick={this.switchView}>Favorites</MenuItem>
+              <MenuItem onClick={this.switchView}>Close</MenuItem>
             </Drawer>
           </div>
         }
         iconElementRight={
           <form style={formStyle} onSubmit={this.handleSubmit}>
             <FontIcon className="material-icons" style={searchStyle} color={grey50}>search</FontIcon>
-            <TextField
+            <TextField name="query"
               hintText="Find a Twitch Channel"
               value={this.state.search}
               onChange={this.handleChange}
