@@ -4,11 +4,10 @@ import Divider from 'material-ui/Divider'
 import Subheader from 'material-ui/Subheader'
 import Avatar from 'material-ui/Avatar'
 import {lightBlack} from 'material-ui/styles/colors'
-import Snackbar from 'material-ui/Snackbar'
 import CircularProgress from 'material-ui/CircularProgress'
 
 function renderFavorites() {
-  return fetch('livefavorites')
+  return fetch('./favorites')
 }
 
 export class Favorites extends React.Component {
@@ -26,9 +25,10 @@ export class Favorites extends React.Component {
   }
   render() {
     if (this.state.favorites) {
-      const favorites = this.state.favorites.streams.map(favorite => {
+      console.log(this.state.favorites)
+      const favorites = this.state.favorites.map(channel => {
         return (
-          <div key={favorite._id} onClick={() => this.handleClick(channel)}>
+          <div key={channel._id}>
             <ListItem
               leftAvatar={<Avatar src={channel.logo} />}
               primaryText={
@@ -42,7 +42,12 @@ export class Favorites extends React.Component {
           </div>
         )
       })
+      return (
+        <List>
+          <Subheader>Your Saved Favorites</Subheader>
+          {favorites}
+        </List>)
     }
-    return (<CircularProgress size={80} thickness={5} />)
+    return (<CircularProgress id="loading-favorites" size={80} thickness={5} />)
   }
 }
