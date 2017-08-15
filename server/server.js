@@ -37,10 +37,31 @@ app.get('/search', (req, res) => {
 
 app.get('/favorites', (req, res) => {
   knex
-    .select('*')
-    .from('streamers')
+    .select('twitch_id').from('streamers')
     .then(data => {
-      res.json(data)
+      const requestsToTwitch = []
+
+      data.forEach(channel => {
+        requestsToTwitch.push(new Promise((resolve, reject) => {
+          const liveStreamOptions = {
+            url: 'https://api.twitch.tv/kraken/channels/' + channel.twitch_id,
+            headers: {
+              'Accept': 'application/vnd.twitchtv.v5+json',
+              'Client-ID': clientId
+            },
+            json: true
+          }
+          request(liveStreamOptions, (err, response, body) => {
+            if (err) reject(err)
+            resolve(body)
+          })
+        }))
+      })
+      Promise.all(requestsToTwitch)
+        .then((results) => {
+          return res.send(results)
+        })
+        .catch(errors => console.log(errors))
     })
 })
 

@@ -3,15 +3,16 @@ import { Search } from './search'
 import { SearchList } from './search-list'
 import { Favorites } from './favorites'
 
-function determineView(det) {
-  if (det.state.view === 'Search') {
+function determineView(component) {
+  if (component.state.view === 'Search') {
     return (
-      <SearchList list={det.state.list} addChannel={det.addChannel} />
+      <SearchList list={component.state.list} addChannel={component.addChannel} />
     )
   }
-  else if (det.state.view === 'Favorites') {
+  else if (component.state.view === 'Favorites') {
+
     return (
-      <Favorites/>
+      <Favorites favorites />
     )
   }
 }
