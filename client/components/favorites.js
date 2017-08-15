@@ -16,9 +16,10 @@ export class Favorites extends React.Component {
     this.state = {favorites: null}
   }
   componentDidMount() {
-    renderFavorites().then(res => {
-      return res.json()
-    })
+    renderFavorites()
+      .then(res => {
+        return res.json()
+      })
       .then(data => {
         this.setState({favorites: data})
       })

@@ -1,5 +1,5 @@
 -- up
-CREATE TABLE IF NOT EXISTS streamers (
+CREATE TABLE streamers (
   id         serial,
   user_id    integer,
   twitch_id  integer

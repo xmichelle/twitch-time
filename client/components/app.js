@@ -3,20 +3,6 @@ import { Search } from './search'
 import { SearchList } from './search-list'
 import { Favorites } from './favorites'
 
-function determineView(component) {
-  if (component.state.view === 'Search') {
-    return (
-      <SearchList list={component.state.list} addChannel={component.addChannel} />
-    )
-  }
-  else if (component.state.view === 'Favorites') {
-
-    return (
-      <Favorites favorites />
-    )
-  }
-}
-
 export class App extends React.Component {
   constructor(props) {
     super(props)
@@ -51,11 +37,14 @@ export class App extends React.Component {
     this.setState({view: param})
   }
   render() {
-    const view = determineView(this)
     return (
       <div>
-        <Search getChannel={this.getChannel} switchView={this.switchView}/>
-        {view}
+        <Search getChannel={this.getChannel} switchView={this.switchView} />
+        {
+          this.state.view === 'Search'
+            ? (<SearchList list={this.state.list} addChannel={this.addChannel} />)
+            : (<Favorites />)
+        }
       </div>
     )
   }

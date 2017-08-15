@@ -35,9 +35,9 @@ export class Search extends React.Component {
     this.setState({ open: !this.state.open })
   }
 
-  switchView(event) {
-    this.props.switchView(event.target.textContent)
-    this.setState({search: this.state.search, open: !this.state.open, view: event.target.textContent})
+  switchView(view) {
+    this.props.switchView(view)
+    this.setState({search: this.state.search, open: !this.state.open, view: view})
   }
 
   render() {
@@ -63,8 +63,8 @@ export class Search extends React.Component {
               open={this.state.open}
               onRequestChange={open => this.setState({open})}
             >
-              <MenuItem onClick={this.switchView}>Search</MenuItem>
-              <MenuItem onClick={this.switchView}>Favorites</MenuItem>
+              <MenuItem onClick={() => this.switchView('Search')}>Search</MenuItem>
+              <MenuItem onClick={() => this.switchView('Favorites')}>Favorites</MenuItem>
               <MenuItem onClick={this.handleToggle}>Close</MenuItem>
             </Drawer>
           </div>
