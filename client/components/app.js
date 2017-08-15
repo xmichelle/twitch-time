@@ -3,12 +3,26 @@ import { Search } from './search'
 import { SearchList } from './search-list'
 import { Favorites } from './favorites'
 
+function determineView(det) {
+  if (det.state.view === 'Search') {
+    return (
+      <SearchList list={det.state.list} addChannel={det.addChannel} />
+    )
+  }
+  else if (det.state.view === 'Favorites') {
+    return (
+      <Favorites/>
+    )
+  }
+}
+
 export class App extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { list: [], favorites: [] }
+    this.state = { list: [], favorites: [], view: 'Search' }
     this.getChannel = this.getChannel.bind(this)
     this.addChannel = this.addChannel.bind(this)
+    this.switchView = this.switchView.bind(this)
   }
 
   getChannel(search) {
@@ -27,18 +41,20 @@ export class App extends React.Component {
     })
       .then(res => res.json())
       .then(data => {
-        console.log(data)
         this.setState({ list: this.state.list.filter(channel => {
           return channel._id !== twitchId.twitch_id
         }) })
       })
   }
+  switchView(param) {
+    this.setState({view: param})
+  }
   render() {
+    const view = determineView(this)
     return (
       <div>
         <Search getChannel={this.getChannel} switchView={this.switchView}/>
-        <SearchList list={this.state.list} addChannel={this.addChannel} />
-        <Favorites/>
+        {view}
       </div>
     )
   }

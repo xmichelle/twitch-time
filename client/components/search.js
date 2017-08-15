@@ -10,7 +10,7 @@ import MenuItem from 'material-ui/MenuItem'
 export class Search extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { search: '', open: false }
+    this.state = { search: '', open: false, view: 'Search' }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleToggle = this.handleToggle.bind(this)
@@ -23,7 +23,6 @@ export class Search extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault()
-    const searchInput = this.state.search
     const newSearch = {
       search: this.state.search.toLowerCase().split(' ').join('')
     }
@@ -36,9 +35,9 @@ export class Search extends React.Component {
     this.setState({ open: !this.state.open })
   }
 
-  switchView() {
-    console.log('switched')
-    this.setState({ open: false })
+  switchView(event) {
+    this.props.switchView(event.target.textContent)
+    this.setState({search: this.state.search, open: !this.state.open, view: event.target.textContent})
   }
 
   render() {
@@ -66,7 +65,7 @@ export class Search extends React.Component {
             >
               <MenuItem onClick={this.switchView}>Search</MenuItem>
               <MenuItem onClick={this.switchView}>Favorites</MenuItem>
-              <MenuItem onClick={this.switchView}>Close</MenuItem>
+              <MenuItem onClick={this.handleToggle}>Close</MenuItem>
             </Drawer>
           </div>
         }

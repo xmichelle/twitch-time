@@ -21,7 +21,6 @@ export class SearchList extends React.Component {
   }
 
   render() {
-    console.log(this.props.list)
     return (
       <div>
         <List>
