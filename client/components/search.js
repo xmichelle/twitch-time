@@ -10,11 +10,11 @@ import MenuItem from 'material-ui/MenuItem'
 export class Search extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { search: '', open: false }
+    this.state = { search: '', open: false, view: 'Search' }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleToggle = this.handleToggle.bind(this)
-    this.handleClose = this.handleClose.bind(this)
+    this.switchView = this.switchView.bind(this)
   }
 
   handleChange(event) {
@@ -23,18 +23,11 @@ export class Search extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault()
-    console.log('Submitting search form')
-
-    const searchInput = this.state.search
-
-    const modifiedSearchInput = searchInput.toLowerCase().split(' ').join('')
-
     const newSearch = {
-      search: modifiedSearchInput
+      search: this.state.search.toLowerCase().split(' ').join('')
     }
 
     this.props.getChannel(newSearch.search)
-
     this.setState({ search: '' })
   }
 
@@ -42,8 +35,9 @@ export class Search extends React.Component {
     this.setState({ open: !this.state.open })
   }
 
-  handleClose() {
-    this.setState({ open: false })
+  switchView(view) {
+    this.props.switchView(view)
+    this.setState({search: this.state.search, open: !this.state.open, view: view})
   }
 
   render() {
@@ -56,10 +50,6 @@ export class Search extends React.Component {
       position: 'relative',
       bottom: 10
     }
-    const sendStyle = {
-      position: 'relative',
-      top: 8
-    }
     return (
       <AppBar
         title="Twitch Time"
@@ -70,25 +60,23 @@ export class Search extends React.Component {
             </IconButton>
             <Drawer
               docked={false}
-              width={200}
               open={this.state.open}
               onRequestChange={open => this.setState({open})}
             >
-              <MenuItem onClick={this.handleClose}>Favorites</MenuItem>
+              <MenuItem onClick={() => this.switchView('Search')}>Search</MenuItem>
+              <MenuItem onClick={() => this.switchView('Favorites')}>Favorites</MenuItem>
+              <MenuItem onClick={this.handleToggle}>Close</MenuItem>
             </Drawer>
           </div>
         }
         iconElementRight={
           <form style={formStyle} onSubmit={this.handleSubmit}>
             <FontIcon className="material-icons" style={searchStyle} color={grey50}>search</FontIcon>
-            <TextField
+            <TextField name="query"
               hintText="Find a Twitch Channel"
               value={this.state.search}
               onChange={this.handleChange}
             />
-            <IconButton style={sendStyle}>
-              <FontIcon className="material-icons" color={grey50}>send</FontIcon>
-            </IconButton>
           </form>
         }
       />

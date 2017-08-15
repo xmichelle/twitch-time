@@ -35,12 +35,35 @@ app.get('/search', (req, res) => {
   })
 })
 
+function channelQuery(id) {
+  return {
+    url: 'https://api.twitch.tv/kraken/channels/' + id,
+    headers: {
+      'Accept': 'application/vnd.twitchtv.v5+json',
+      'Client-ID': clientId
+    },
+    json: true
+  }
+}
+
 app.get('/favorites', (req, res) => {
   knex
-    .select('*')
-    .from('streamers')
+    .select('twitch_id').from('streamers')
     .then(data => {
-      res.json(data)
+      const requestsToTwitch = []
+      data.forEach(channel => {
+        requestsToTwitch.push(new Promise((resolve, reject) => {
+          request(channelQuery(channel.twitch_id), (err, response, body) => {
+            if (err) reject(err)
+            resolve(body)
+          })
+        }))
+      })
+      Promise.all(requestsToTwitch)
+        .then((results) => {
+          return res.send(results)
+        })
+        .catch(errors => console.log(errors))
     })
 })
 
