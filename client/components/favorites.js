@@ -1,6 +1,6 @@
 import React from 'react'
 
-class Favorites extends React.Component {
+export class Favorites extends React.Component {
   constructor(props) {
     super(props)
     this.favorites = this.props.ravorites
@@ -11,5 +11,3 @@ class Favorites extends React.Component {
     )
   }
 }
-
-export default Favorites

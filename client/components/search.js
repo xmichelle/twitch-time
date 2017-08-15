@@ -56,10 +56,6 @@ export class Search extends React.Component {
       position: 'relative',
       bottom: 10
     }
-    const sendStyle = {
-      position: 'relative',
-      top: 8
-    }
     return (
       <AppBar
         title="Twitch Time"
@@ -74,7 +70,9 @@ export class Search extends React.Component {
               open={this.state.open}
               onRequestChange={open => this.setState({open})}
             >
+              <MenuItem onClick={this.handleClose}>Search</MenuItem>
               <MenuItem onClick={this.handleClose}>Favorites</MenuItem>
+              <MenuItem onClick={this.handleClose}>Close</MenuItem>
             </Drawer>
           </div>
         }
@@ -86,9 +84,6 @@ export class Search extends React.Component {
               value={this.state.search}
               onChange={this.handleChange}
             />
-            <IconButton style={sendStyle}>
-              <FontIcon className="material-icons" color={grey50}>send</FontIcon>
-            </IconButton>
           </form>
         }
       />

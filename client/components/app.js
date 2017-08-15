@@ -1,6 +1,7 @@
 import React from 'react'
 import { Search } from './search'
 import { SearchList } from './search-list'
+import { Favorites } from './favorites'
 
 export class App extends React.Component {
   constructor(props) {
@@ -32,16 +33,12 @@ export class App extends React.Component {
         }) })
       })
   }
-
   render() {
     return (
       <div>
-        <div className="search-bar">
-          <Search getChannel={this.getChannel} />
-        </div>
-        <div>
-          <SearchList list={this.state.list} addChannel={this.addChannel} />
-        </div>
+        <Search getChannel={this.getChannel}/>
+        <SearchList list={this.state.list} addChannel={this.addChannel} />
+        <Favorites/>
       </div>
     )
   }
