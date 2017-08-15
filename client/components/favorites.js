@@ -25,7 +25,6 @@ export class Favorites extends React.Component {
   }
   render() {
     if (this.state.favorites) {
-      console.log(this.state.favorites)
       const favorites = this.state.favorites.map(channel => {
         return (
           <div key={channel._id}>
