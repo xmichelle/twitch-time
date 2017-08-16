@@ -72,7 +72,8 @@ export class Search extends React.Component {
         iconElementRight={
           <form style={formStyle} onSubmit={this.handleSubmit}>
             <FontIcon className="material-icons" style={searchStyle} color={grey50}>search</FontIcon>
-            <TextField name="query"
+            <TextField
+              name="query"
               hintText="Find a Twitch Channel"
               value={this.state.search}
               onChange={this.handleChange}

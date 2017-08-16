@@ -33,9 +33,11 @@ export class App extends React.Component {
         }) })
       })
   }
+
   switchView(param) {
     this.setState({view: param})
   }
+
   render() {
     return (
       <div>

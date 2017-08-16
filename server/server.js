@@ -48,7 +48,8 @@ function channelQuery(id) {
 
 app.get('/favorites', (req, res) => {
   knex
-    .select('twitch_id').from('streamers')
+    .select('twitch_id')
+    .from('streamers')
     .then(data => {
       const requestsToTwitch = []
       data.forEach(channel => {
@@ -60,7 +61,7 @@ app.get('/favorites', (req, res) => {
         }))
       })
       Promise.all(requestsToTwitch)
-        .then((results) => {
+        .then(results => {
           return res.send(results)
         })
         .catch(errors => console.log(errors))

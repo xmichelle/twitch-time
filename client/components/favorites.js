@@ -15,6 +15,7 @@ export class Favorites extends React.Component {
     super(props)
     this.state = {favorites: null}
   }
+
   componentDidMount() {
     renderFavorites()
       .then(res => {
@@ -24,6 +25,7 @@ export class Favorites extends React.Component {
         this.setState({favorites: data})
       })
   }
+
   render() {
     if (this.state.favorites) {
       const favorites = this.state.favorites.map(channel => {
@@ -48,6 +50,8 @@ export class Favorites extends React.Component {
           {favorites}
         </List>)
     }
-    return (<CircularProgress id="loading-favorites" size={80} thickness={5} />)
+    return (
+      <CircularProgress id="loading-favorites" size={80} thickness={5} />
+    )
   }
 }
