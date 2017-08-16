@@ -6,6 +6,7 @@ import {grey50} from 'material-ui/styles/colors'
 import IconButton from 'material-ui/IconButton'
 import Drawer from 'material-ui/Drawer'
 import MenuItem from 'material-ui/MenuItem'
+// import {SearchList} from './search-list'
 
 export class Search extends React.Component {
   constructor(props) {
@@ -51,36 +52,39 @@ export class Search extends React.Component {
       bottom: 10
     }
     return (
-      <AppBar
-        title="Twitch Time"
-        iconElementLeft={
-          <div>
-            <IconButton onClick={this.handleToggle}>
-              <FontIcon className="material-icons" color={grey50}>menu</FontIcon>
-            </IconButton>
-            <Drawer
-              docked={false}
-              open={this.state.open}
-              onRequestChange={open => this.setState({open})}
-            >
-              <MenuItem onClick={() => this.switchView('Search')}>Search</MenuItem>
-              <MenuItem onClick={() => this.switchView('Favorites')}>Favorites</MenuItem>
-              <MenuItem onClick={this.handleToggle}>Close</MenuItem>
-            </Drawer>
-          </div>
-        }
-        iconElementRight={
-          <form style={formStyle} onSubmit={this.handleSubmit}>
-            <FontIcon className="material-icons" style={searchStyle} color={grey50}>search</FontIcon>
-            <TextField
-              name="query"
-              hintText="Find a Twitch Channel"
-              value={this.state.search}
-              onChange={this.handleChange}
-            />
-          </form>
-        }
-      />
+      <div>
+        {/* <SearchList searches={this.state.search} /> */}
+        <AppBar
+          title="Twitch Time"
+          iconElementLeft={
+            <div>
+              <IconButton onClick={this.handleToggle}>
+                <FontIcon className="material-icons" color={grey50}>menu</FontIcon>
+              </IconButton>
+              <Drawer
+                docked={false}
+                open={this.state.open}
+                onRequestChange={open => this.setState({open})}
+              >
+                <MenuItem onClick={() => this.switchView('Search')}>Search</MenuItem>
+                <MenuItem onClick={() => this.switchView('Favorites')}>Favorites</MenuItem>
+                <MenuItem onClick={this.handleToggle}>Close</MenuItem>
+              </Drawer>
+            </div>
+          }
+          iconElementRight={
+            <form style={formStyle} onSubmit={this.handleSubmit}>
+              <FontIcon className="material-icons" style={searchStyle} color={grey50}>search</FontIcon>
+              <TextField
+                name="query"
+                hintText="Find a Twitch Channel"
+                value={this.state.search}
+                onChange={this.handleChange}
+              />
+            </form>
+          }
+        />
+      </div>
     )
   }
 }

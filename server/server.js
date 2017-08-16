@@ -68,14 +68,30 @@ app.get('/favorites', (req, res) => {
     })
 })
 
-app.post('/favorites', (req, res) => {
-  const channelId = req.body
-  knex
+function findTwitchId(id) {
+  const query = knex
+    .select('twitch_id')
+    .from('streamers')
+    .where('twitch_id', id)
+  return query
+}
+
+function insertTwitchId(channelId) {
+  const query = knex
     .insert(channelId)
     .into('streamers')
     .returning('*')
+  return query
+}
+
+app.post('/favorites', (req, res) => {
+  const channelId = req.body
+  findTwitchId(channelId.twitch_id)
     .then(data => {
-      res.status(201).json(data)
+      if (data.length < 1) {
+        insertTwitchId(channelId)
+          .then(data => res.status(201).json(data))
+      }
     })
 })
 
