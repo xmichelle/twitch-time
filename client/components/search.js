@@ -6,7 +6,6 @@ import {grey50} from 'material-ui/styles/colors'
 import IconButton from 'material-ui/IconButton'
 import Drawer from 'material-ui/Drawer'
 import MenuItem from 'material-ui/MenuItem'
-// import {SearchList} from './search-list'
 
 export class Search extends React.Component {
   constructor(props) {
@@ -53,7 +52,6 @@ export class Search extends React.Component {
     }
     return (
       <div>
-        {/* <SearchList searches={this.state.search} /> */}
         <AppBar
           title="Twitch Time"
           iconElementLeft={
