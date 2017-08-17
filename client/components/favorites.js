@@ -38,15 +38,34 @@ export class Favorites extends React.Component {
                 <p>{channel.display_name}<span style={{color: lightBlack, paddingLeft: 15}}>Followers: {channel.followers}</span></p>
               }
               secondaryText={
-                <p>
+                <div>
+                  <div>
+                    { channel.stream === true
+                      ? <div className="dot-container">
+                        <div className="dot green"></div>
+                        <div className="pulse green"></div>
+                        <span className="stream">Stream Status: Live</span>
+                      </div>
+                      : <div className="dot-container">
+                        <div className="dot red"></div>
+                        <div className="pulse red"></div>
+                        <span className="stream">Stream Status: Offline</span>
+                      </div>
+                    }
+                  </div>
+                  <div>
+                    {channel.description}
+                  </div>
+                </div>
+                /* <p>
                   <span style={{color: lightBlack}}>
-                    { channel.stream === true ? 'Stream Status: Live' : 'Stream Status: Offline' }
+                    { channel.stream === true ? <div className="dot green">Stream Status: Live</div> : <div className="dot red">Stream Status: Offline</div> }
                   </span>
                   <br></br>
                   {channel.description}
-                </p>
+                </p> */
               }
-              secondaryTextLines={2}
+              secondaryTextLines={5}
             />
             <Divider inset={true}/>
           </div>
