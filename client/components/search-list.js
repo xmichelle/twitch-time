@@ -29,7 +29,7 @@ export class SearchList extends React.Component {
 
   render() {
     // console.log(this.props.list)
-    // if (this.props.list.length < 1 && this.state.search === true) {
+    // if (this.state.search === true) {
     //   return (
     //     <CircularProgress id="loading-searches" size={80} thickness={5} />
     //   )

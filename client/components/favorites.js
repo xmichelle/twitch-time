@@ -27,10 +27,8 @@ export class Favorites extends React.Component {
   }
 
   render() {
-    // console.log(this.state.favorites)
     if (this.state.favorites) {
       const favorites = this.state.favorites.map((channel, i) => {
-        console.log(channel.url)
         return (
           <a key={i} href={channel.url} target="_blank">
             <div>

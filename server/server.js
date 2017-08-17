@@ -128,9 +128,13 @@ app.post('/favorites', (req, res) => {
     .then(data => {
       if (data.length < 1) {
         insertTwitchId(channelId)
-          .then(data => res.status(201).json(data))
+          .then(results => res.status(201).json(results))
+      }
+      else {
+        res.sendStatus(204)
       }
     })
+    .catch(err => console.log(err))
 })
 
 app.listen(process.env.PORT, () => {

@@ -26,7 +26,10 @@ export class App extends React.Component {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(twitchId)
     })
-      .then(res => res.json())
+      .then(res => {
+        if (res.status === 204) return {}
+        else res.json()
+      })
       .then(data => {
         this.setState({ list: this.state.list.filter(channel => {
           return channel._id !== twitchId.twitch_id
