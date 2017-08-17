@@ -62,7 +62,8 @@ function addStreamInfo(channels, streams) {
     for (let j = 0; j < streams.length; j++) {
       // console.log(typeof channels[i]._id)
       // console.log(typeof streams[j].stream.channel._id)
-      if (Number(channels[i]._id) === streams[j].stream.channel._id) {
+      console.log(streams[j].stream)
+      if (streams[j].stream !== null && Number(channels[i]._id) === streams[j].stream.channel._id) {
         const stream = {stream: true}
         Object.assign(channels[i], stream)
       }
@@ -114,11 +115,13 @@ app.get('/favorites', (req, res) => {
         Promise.all(channelRequests), Promise.all(streamRequests)
       ])
         .then(combinedResults => {
+          // console.log(JSON.stringify(combinedResults[0], null, 2))
           // console.log(JSON.stringify(combinedResults[1], null, 2))
-        //  console.log(combinedResults[1][0].stream.channel)
-          console.log(addStreamInfo(combinedResults[0], combinedResults[1]))
+          // console.log(combinedResults[1].stream.channel)
+          // console.log(addStreamInfo(combinedResults[0], combinedResults[1]))
+          addStreamInfo(combinedResults[0], combinedResults[1])
         })
-
+        .catch(err => console.log(err))
     })
 
 })
