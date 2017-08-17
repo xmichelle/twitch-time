@@ -1,4 +1,4 @@
 # twitch-time
 A web app for Twitch users who want to be notified when their favorite streamers are streaming.
 
-![readme](https://user-images.githubusercontent.com/29046211/29436561-f55ae476-8360-11e7-91ca-43853b320bef.gif)
+![twitch-time](https://user-images.githubusercontent.com/29046211/29437066-81792c86-8363-11e7-81f8-4a63d1bcf71c.gif)
