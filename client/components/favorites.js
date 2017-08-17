@@ -39,9 +39,9 @@ export class Favorites extends React.Component {
               }
               secondaryText={
                 <p>
-                  {/* <span style={{color: lightBlack}}>
-                    Stream Status: {channel.stream}
-                  </span> */}
+                  <span style={{color: lightBlack}}>
+                    { channel.stream === true ? 'Stream Status: Live' : 'Stream Status: Offline' }
+                  </span>
                   <br></br>
                   {channel.description}
                 </p>
