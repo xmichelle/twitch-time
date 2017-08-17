@@ -10,7 +10,7 @@ import Snackbar from 'material-ui/Snackbar'
 export class SearchList extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { list: [], open: false, displayName: '' }
+    this.state = { list: [], open: false, displayName: '', search: false }
     this.handleClick = this.handleClick.bind(this)
   }
 
@@ -21,9 +21,15 @@ export class SearchList extends React.Component {
     this.props.addChannel(twitchId)
   }
 
+  // isSearching() {
+  //   if (this.props.list.length > 1) {
+  //     this.setState({ search: true })
+  //   }
+  // }
+
   render() {
     // console.log(this.props.list)
-    // if (this.props.list.length < 1 && this.props.searches !== '') {
+    // if (this.props.list.length < 1 && this.state.search === true) {
     //   return (
     //     <CircularProgress id="loading-searches" size={80} thickness={5} />
     //   )
@@ -59,3 +65,6 @@ export class SearchList extends React.Component {
     )
   }
 }
+
+// update snackbar to if/else statement
+// show loading icon when getting search list
