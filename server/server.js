@@ -60,9 +60,6 @@ function streamQuery(id) {
 function addStreamInfo(channels, streams) {
   for (let i = 0; i < channels.length; i++) {
     for (let j = 0; j < streams.length; j++) {
-      // console.log(typeof channels[i]._id)
-      // console.log(typeof streams[j].stream.channel._id)
-      console.log(streams[j].stream)
       if (streams[j].stream !== null && Number(channels[i]._id) === streams[j].stream.channel._id) {
         const stream = {stream: true}
         Object.assign(channels[i], stream)
@@ -86,13 +83,6 @@ app.get('/favorites', (req, res) => {
           })
         }))
       })
-      // Promise.all(channelRequests)
-      //   .then(results => {
-      //   //  console.log(results)
-      //     // return res.send(results)
-      //     return results
-      //   })
-      //   .catch(errors => console.log(errors))
 
       const streamRequests = []
       data.forEach(channel => {
@@ -103,23 +93,13 @@ app.get('/favorites', (req, res) => {
           })
         }))
       })
-      // Promise.all(streamRequests)
-      //   .then(results => {
-      //   //  console.log(results[0].stream.channel._id)
-      //     console.log(addStreamInfo(channelRequests, results))
-      //
-      //   })
-      //   .catch(err => console.log(err))
 
       Promise.all([
         Promise.all(channelRequests), Promise.all(streamRequests)
       ])
         .then(combinedResults => {
-          // console.log(JSON.stringify(combinedResults[0], null, 2))
-          // console.log(JSON.stringify(combinedResults[1], null, 2))
-          // console.log(combinedResults[1].stream.channel)
-          // console.log(addStreamInfo(combinedResults[0], combinedResults[1]))
-          addStreamInfo(combinedResults[0], combinedResults[1])
+          const results = addStreamInfo(combinedResults[0], combinedResults[1])
+          res.send(results)
         })
         .catch(err => console.log(err))
     })
