@@ -46,26 +46,81 @@ function channelQuery(id) {
   }
 }
 
+function streamQuery(id) {
+  return {
+    url: 'https://api.twitch.tv/kraken/streams/' + id,
+    headers: {
+      'Accept': 'application/vnd.twitchtv.v5+json',
+      'Client-ID': clientId
+    },
+    json: true
+  }
+}
+
+function addStreamInfo(channels, streams) {
+  for (let i = 0; i < channels.length; i++) {
+    for (let j = 0; j < streams.length; j++) {
+      // console.log(typeof channels[i]._id)
+      // console.log(typeof streams[j].stream.channel._id)
+      if (Number(channels[i]._id) === streams[j].stream.channel._id) {
+        const stream = {stream: true}
+        Object.assign(channels[i], stream)
+      }
+    }
+  }
+  return channels
+}
+
 app.get('/favorites', (req, res) => {
   knex
     .select('twitch_id')
     .from('streamers')
     .then(data => {
-      const requestsToTwitch = []
+      const channelRequests = []
       data.forEach(channel => {
-        requestsToTwitch.push(new Promise((resolve, reject) => {
+        channelRequests.push(new Promise((resolve, reject) => {
           request(channelQuery(channel.twitch_id), (err, response, body) => {
             if (err) reject(err)
             resolve(body)
           })
         }))
       })
-      Promise.all(requestsToTwitch)
-        .then(results => {
-          return res.send(results)
+      // Promise.all(channelRequests)
+      //   .then(results => {
+      //   //  console.log(results)
+      //     // return res.send(results)
+      //     return results
+      //   })
+      //   .catch(errors => console.log(errors))
+
+      const streamRequests = []
+      data.forEach(channel => {
+        streamRequests.push(new Promise((resolve, reject) => {
+          request(streamQuery(channel.twitch_id), (err, response, body) => {
+            if (err) reject(err)
+            resolve(body)
+          })
+        }))
+      })
+      // Promise.all(streamRequests)
+      //   .then(results => {
+      //   //  console.log(results[0].stream.channel._id)
+      //     console.log(addStreamInfo(channelRequests, results))
+      //
+      //   })
+      //   .catch(err => console.log(err))
+
+      Promise.all([
+        Promise.all(channelRequests), Promise.all(streamRequests)
+      ])
+        .then(combinedResults => {
+          // console.log(JSON.stringify(combinedResults[1], null, 2))
+        //  console.log(combinedResults[1][0].stream.channel)
+          console.log(addStreamInfo(combinedResults[0], combinedResults[1]))
         })
-        .catch(errors => console.log(errors))
+
     })
+
 })
 
 function findTwitchId(id) {

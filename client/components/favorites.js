@@ -27,18 +27,26 @@ export class Favorites extends React.Component {
   }
 
   render() {
+    console.log(this.state.favorites)
     if (this.state.favorites) {
-      const favorites = this.state.favorites.map(channel => {
+      const favorites = this.state.favorites.map((channel, i) => {
         return (
-          <div key={channel._id}>
+          <div key={i}>
             <ListItem
               leftAvatar={<Avatar src={channel.logo} />}
               primaryText={
                 <p>{channel.display_name}<span style={{color: lightBlack, paddingLeft: 15}}>Followers: {channel.followers}</span></p>
               }
               secondaryText={
-                <p>{channel.description}</p>
+                <p>
+                  {/* <span style={{color: lightBlack}}>
+                    Stream Status: {channel.stream}
+                  </span> */}
+                  <br></br>
+                  {channel.description}
+                </p>
               }
+              secondaryTextLines={2}
             />
             <Divider inset={true}/>
           </div>
