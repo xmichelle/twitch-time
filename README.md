@@ -9,6 +9,11 @@ Install [Git](https://git-scm.com/) and [Node](https://nodejs.org/en/).
     $ git clone https://github.com/xmichelle/twitch-time.git
     $ cd twitch-time
     $ npm install
+    $ brew install postgresql
+    $ brew services start postgresql
+    $ createuser [username]
+    $ createdb -O [owner] streamers
+    $ npm run db:up
     $ npm run watch
 
 Navigate to [http://localhost:3000/](http://localhost:3000/) in your browser.
@@ -17,4 +22,5 @@ Navigate to [http://localhost:3000/](http://localhost:3000/) in your browser.
   * [React](https://facebook.github.io/react/)
   * [Express](https://expressjs.com/)
   * [PostgreSQL](https://www.postgresql.org/)
+  * [Babel](https://babeljs.io/)
   * [Material-UI](http://www.material-ui.com/#/)
