@@ -46,36 +46,95 @@ function channelQuery(id) {
   }
 }
 
+function streamQuery(id) {
+  return {
+    url: 'https://api.twitch.tv/kraken/streams/' + id,
+    headers: {
+      'Accept': 'application/vnd.twitchtv.v5+json',
+      'Client-ID': clientId
+    },
+    json: true
+  }
+}
+
+function addStreamInfo(channels, streams) {
+  for (let i = 0; i < channels.length; i++) {
+    for (let j = 0; j < streams.length; j++) {
+      if (streams[j].stream !== null && Number(channels[i]._id) === streams[j].stream.channel._id) {
+        const stream = {stream: true}
+        Object.assign(channels[i], stream)
+      }
+    }
+  }
+  return channels
+}
+
 app.get('/favorites', (req, res) => {
   knex
-    .select('twitch_id').from('streamers')
+    .select('twitch_id')
+    .from('streamers')
     .then(data => {
-      const requestsToTwitch = []
+      const channelRequests = []
       data.forEach(channel => {
-        requestsToTwitch.push(new Promise((resolve, reject) => {
+        channelRequests.push(new Promise((resolve, reject) => {
           request(channelQuery(channel.twitch_id), (err, response, body) => {
             if (err) reject(err)
             resolve(body)
           })
         }))
       })
-      Promise.all(requestsToTwitch)
-        .then((results) => {
-          return res.send(results)
+
+      const streamRequests = []
+      data.forEach(channel => {
+        streamRequests.push(new Promise((resolve, reject) => {
+          request(streamQuery(channel.twitch_id), (err, response, body) => {
+            if (err) reject(err)
+            resolve(body)
+          })
+        }))
+      })
+
+      Promise.all([
+        Promise.all(channelRequests), Promise.all(streamRequests)
+      ])
+        .then(combinedResults => {
+          const results = addStreamInfo(combinedResults[0], combinedResults[1])
+          res.send(results)
         })
-        .catch(errors => console.log(errors))
+        .catch(err => console.log(err))
     })
+
 })
 
-app.post('/favorites', (req, res) => {
-  const channelId = req.body
-  knex
+function findTwitchId(id) {
+  const query = knex
+    .select('twitch_id')
+    .from('streamers')
+    .where('twitch_id', id)
+  return query
+}
+
+function insertTwitchId(channelId) {
+  const query = knex
     .insert(channelId)
     .into('streamers')
     .returning('*')
+  return query
+}
+
+app.post('/favorites', (req, res) => {
+  const channelId = req.body
+  findTwitchId(channelId.twitch_id)
     .then(data => {
-      res.status(201).json(data)
+      if (data.length < 1) {
+        insertTwitchId(channelId)
+          .then(results => res.status(201).json(results))
+      }
+      else {
+        res.sendStatus(204)
+      }
     })
+    .catch(err => console.log(err))
 })
 
 app.listen(process.env.PORT, () => {

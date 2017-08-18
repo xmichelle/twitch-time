@@ -2,8 +2,141 @@ span {
   font-size: 0.85em;
 }
 
-#loading-favorites {
+#loading-favorites,
+#loading-searches {
   margin: 0 auto;
   width: 100%;
   display: block !important;
+  position: relative;
+  top: 20px;
+}
+
+.stream {
+  position: relative;
+  left: 20px;
+}
+
+.dot-container {
+  left: 10px;
+  position: relative;
+}
+
+.pulse.red {
+  width: 4px;
+  height: 4px;
+  border: 4px solid red;
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  border-radius: 30px;
+  z-index: 10;
+  position: absolute;
+  top: 5px;
+}
+
+.pulse.green {
+  width: 4px;
+  height: 4px;
+  border: 4px solid #13db13;
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  border-radius: 30px;
+  z-index: 10;
+  position: absolute;
+  top: 5px;
+}
+
+.dot.red {
+  border: 1px solid red;
+  background: transparent;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+  height: 20px;
+  width: 20px;
+  -webkit-animation: pulse 3s ease-out;
+  -moz-animation: pulse 3s ease-out;
+  animation: pulse 3s ease-out;
+  -webkit-animation-iteration-count: infinite;
+  -moz-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  position: absolute;
+  top: -1px;
+  left: -6px;
+  z-index: 1;
+  opacity: 0;
+}
+
+.dot.green {
+  border: 10px solid #13db13;
+  background: transparent;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+  height: 20px;
+  width: 20px;
+  -webkit-animation: pulse 3s ease-out;
+  -moz-animation: pulse 3s ease-out;
+  animation: pulse 3s ease-out;
+  -webkit-animation-iteration-count: infinite;
+  -moz-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  position: absolute;
+  top: -1px;
+  left: -6px;
+  z-index: 1;
+  opacity: 0;
+}
+
+@-moz-keyframes pulse {
+  0% {
+    -moz-transform: scale(0);
+    opacity: 0;
+  }
+
+  25% {
+    -moz-transform: scale(0);
+    opacity: 0.1;
+  }
+
+  50% {
+    -moz-transform: scale(0.1);
+    opacity: 0.3;
+  }
+
+  75% {
+    -moz-transform: scale(0.5);
+    opacity: 0.5;
+  }
+
+  100% {
+    -moz-transform: scale(1);
+    opacity: 0;
+  }
+}
+
+@-webkit-keyframes "pulse" {
+  0% {
+    -webkit-transform: scale(0);
+    opacity: 0;
+  }
+
+  25% {
+    -webkit-transform: scale(0);
+    opacity: 0.1;
+  }
+
+  50% {
+    -webkit-transform: scale(0.1);
+    opacity: 0.3;
+  }
+
+  75% {
+    -webkit-transform: scale(0.5);
+    opacity: 0.5;
+  }
+
+  100% {
+    -webkit-transform: scale(1);
+    opacity: 0;
+  }
 }
