@@ -4,7 +4,7 @@ A web app for Twitch users who want to be notified when their favorite streamers
 ![twitch-time](https://user-images.githubusercontent.com/29046211/29437066-81792c86-8363-11e7-81f8-4a63d1bcf71c.gif)
 
 ## Setup
-Install [Git](https://git-scm.com/) and [Node](https://nodejs.org/en/).
+Install [Git](https://git-scm.com/), [Node](https://nodejs.org/en/), [Brew](https://brew.sh/).
 
     $ git clone https://github.com/xmichelle/twitch-time.git
     $ cd twitch-time
